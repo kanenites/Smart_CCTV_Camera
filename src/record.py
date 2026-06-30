@@ -4,7 +4,7 @@ import os
 
 def record():
     cap = cv2.VideoCapture(0)
-    record_folder="C:/Users/sgshi/OneDrive/Desktop/Projects/Smart CCTV/Visitors/recordings"
+    record_folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), "visitors", "recordings")
     if not os.path.exists(record_folder):
         os.makedirs(record_folder)
     fourcc = cv2.VideoWriter_fourcc(*'XVID')

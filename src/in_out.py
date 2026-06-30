@@ -10,10 +10,11 @@ def in_out():
     left = False
 
     # Ensure the directories exist
-    if not os.path.exists('visitors/in'):
-        os.makedirs('visitors/in')
-    if not os.path.exists('visitors/out'):
-        os.makedirs('visitors/out')
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    in_dir = os.path.join(base_dir, "visitors", "in")
+    out_dir = os.path.join(base_dir, "visitors", "out")
+    os.makedirs(in_dir, exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
 
     while True:
         ret, frame1 = cap.read()
@@ -55,12 +56,12 @@ def in_out():
         if detected:
             if right:
                 print("to right")
-                cv2.imwrite(f"C:/Users/sgshi/OneDrive/Desktop/Projects/Smart CCTV/Visitors/out/{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.jpg", frame1)
+                cv2.imwrite(os.path.join(os.path.dirname(os.path.dirname(__file__)), "visitors", "out", f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.jpg"), frame1)
                 right = False  # Reset direction after saving
 
             elif left:
                 print("to left")
-                cv2.imwrite(f"C:/Users/sgshi/OneDrive/Desktop/Projects/Smart CCTV/Visitors/in/{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.jpg", frame1)
+                cv2.imwrite(os.path.join(os.path.dirname(os.path.dirname(__file__)), "visitors", "in", f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.jpg"), frame1)
                 left = False  # Reset direction after saving
 
         cv2.imshow("Frame", frame1)
